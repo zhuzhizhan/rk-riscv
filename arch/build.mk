@@ -1,1 +1,1 @@
-obj-y += startup.o
+obj-y += crt.o
