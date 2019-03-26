@@ -46,8 +46,9 @@ else
 export CROSS_COMPILE ?= /home/zzz/code/riscv/riscv-tools/riscv-toolchain/bin/riscv32-unknown-elf-
 export CCFLAGS := -O2
 ASFLAGS += -nostdlib
-LDFLAGS += -march=rv32i -mabi=ilp32 -nostartfiles -Wl,--no-relax
-LDFLAGS += -T link.ld_org
+LDFLAGS += -march=rv32ima -mabi=ilp32 -Wl,-e_reset_vector
+# LDFLAGS += -T link.ld_org
+LDFLAGS +=
 endif
 
 export CC := $(CROSS_COMPILE)gcc

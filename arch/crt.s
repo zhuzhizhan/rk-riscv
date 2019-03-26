@@ -1,10 +1,7 @@
 .globl _start
-.globl main
+.globl _reset_vector
 
-_start:
-jal main
+_reset_vector:
+j _start
 
-# call exit (SYS_EXIT=93) with exit code 0 (argument in a0)
-li a7,93
-li a0,0
-ecall
+
