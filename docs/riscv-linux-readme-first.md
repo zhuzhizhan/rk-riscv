@@ -111,6 +111,12 @@ For RV32GC:
 ./configure --target-list=riscv32-softmmu && make
 ```
 
+也可以到syntacore下载：
+
+```
+https://github.com/riscv/riscv-toolchain-conventions.git
+```
+
 可以直接使用成熟的gcc，Hifive官网有提供工具链，供下载使用。
 
 ```
