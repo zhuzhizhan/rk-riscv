@@ -137,6 +137,12 @@ For RV32GC:
 https://www.sifive.com/boards
 ```
 
+也可以到syntacore下载：
+
+```
+https://github.com/riscv/riscv-toolchain-conventions.git
+```
+
 工具链的配置可以参考：
 
 ```
