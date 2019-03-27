@@ -200,7 +200,11 @@ https://github.com/zhuzhizhan/rk-riscv
 
 运行./qemu.sh即可仿真结果。
 
-## 8 参考资料
+## 9 scr1仿真
+
+参考《scr1_um.pdf》
+
+## 9 参考资料
 
 所有RISC-V芯片与软件相关的产品可以从 <https://github.com/riscv/riscv-wiki/wiki> 获取。
 
