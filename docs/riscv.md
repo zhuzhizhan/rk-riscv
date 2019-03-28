@@ -188,6 +188,8 @@ halt
 flash write_image erase xxxx.hex
 ```
 
+参考《openocd+jlink.md》。
+
 ## 7 rk-riscv搭建
 
 工程项目：
@@ -200,7 +202,82 @@ https://github.com/zhuzhizhan/rk-riscv
 
 运行./qemu.sh即可仿真结果。
 
-## 9 scr1仿真
+## 8 scr1仿真
+
+### 8.1 工具链
+
+安装，也可以从syntacore下载现成的工具链。
+
+```
+sudo apt-get install autoconf automake libmpc-dev libmpfr-dev libgmp-dev gawk bison
+flex texinfo libtool make g++ pkg-config libexpat1-dev zlib1g-dev
+git clone https://github.com/riscv/riscv-gnu-toolchain.git
+cd riscv-gnu-toolchain
+git checkout a71fc539850f8dacf232fc580743b946c376014b
+git submodule update --init --recursive
+./configure --prefix=<GCC_INSTALL_PATH> --enable-multilib
+make
+```
+
+环境变量设置：
+
+```
+export PATH=$PATH:<GCC_INSTALL_PATH>/bin
+```
+
+ubuntu18编译会找不到libmpfr.so.4，需要执行以下命令：
+
+```
+sudo ln -s /usr/lib/x86_64-linux-gnu/libmpfr.so.6 /usr/lib/x86_64-linux-gnu/libmpfr.so.4
+```
+
+### 8.2 riscv-tests
+
+riscv-tests为ISA测试，执行下列命令：
+
+```
+git clone https://github.com/riscv/riscv-tests
+cd riscv-tests
+git checkout a9433c4daa287fbe101025f2a079261a10149225
+export RISCV_TESTS=<RISCV_TESTS_PATH>
+```
+
+### 8.3 riscv-compliance
+
+```
+git clone https://github.com/riscv/riscv-compliance
+cd riscv-compliance
+git checkout 9273836251cc53069f9cc48543fa9c1417e98cb7
+export RISCV_COMPLIANCE_TESTS=<RISCV_COMPLIANCE_TESTS_PATH>
+```
+
+### 8.4 coremark
+
+coremark为软件性能评分软件，非常容易移植，只需执行下列步骤：
+
+```
+git clone https://github.com/eembc/coremark.git
+把文件core_main.c，core_list_join.c，coremark.h，core_matrix.c，core_state.c，core_util.c移动到tests/benchmarks/coremark/src目录下
+```
+
+### 8.5 执行仿真
+
+make run_<SIMULATOR> BUS=<AHB, AXI> ARCH=<I, IM, IMC, IC, EM, EMC, EC> IPIC=<0, 1>
+
+SIMULATOR支持：
+
+- run_modelsim
+- run_vcs
+- run_ncsim
+- run_verilator
+
+前三个需要安装收费软件，最后一个只需执行：
+
+```
+sudo apt-get install verilator
+```
+
+例：make run_verilator BUS=AHB ARCH=IMC IPIC=0
 
 参考《scr1_um.pdf》
 
