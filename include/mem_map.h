@@ -14,24 +14,14 @@
 // limitations under the License.
 
 
-#include "printf.h"
-#include "encoding.h"
+#ifndef __MEM_MAP_H
+#define __MEM_MAP_H
 
-int main()
-{
-	int a = 10;
-	int b = 3;
-	printf("a + b = %d\n", a + b);
-	printf("a - b = %d\n", a - b);
-	printf("a * b = %d\n", a * b);
-	printf("a / b = %d\n", a / b);
-	printf("a \% b = %d\n", a % b);
-	printf("Hello world from SweRV on FPGA!\n");
-        printf("read_csr() is %x\n", read_csr(0xf11));
-        printf("read_csr() is %x\n", read_csr(0xf12));
-        printf("read_csr() is %x\n", read_csr(0xf13));
-        printf("read_csr() is %x\n", read_csr(0xf14));
-        printf("read_csr() is %x\n", read_csr(0xb00));
-        printf("read_csr() is %x\n", read_csr(0xb02));
-	return 0;
-}
+//Memory map
+#define EXT_SRAM_BASE_ADDRES 	0x00000000
+#define ICCM_BASE_ADDRESS		0xEE000000
+#define DCCM_BASE_ADDRESS		0xF0080000
+#define UART_BASE_ADDRESS		0x44A00000
+
+
+#endif //__MEM_MAP_H

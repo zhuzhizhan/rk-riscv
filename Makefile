@@ -5,51 +5,17 @@
 # 2019.3.18		never			the first version
 #====================================================================
 
-#--------------------------------------------------------------------
-# baremetal: y
-#--------------------------------------------------------------------
-Baremetal := n
+TARGET := riscv.elf
 
-#--------------------------------------------------------------------
-# target
-#--------------------------------------------------------------------
-ifeq ($(Baremetal), y)
-TARGET := start.elf
-MCPU := cortex-m4
-else
-TARGET := demo
-CCFLAGS := -O2
-endif
-
-#--------------------------------------------------------------------
-# compile option
-#--------------------------------------------------------------------
-ifeq ($(Baremetal), y)
-export CROSS_COMPILE ?= arm-none-eabi-
-
-DEVICE := -mfpu=fpv4-sp-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections -mcpu=$(MCPU)
-
-export CCFLAGS := -O2
+export CROSS_COMPILE ?= riscv32-unknown-elf-
+DEVICE := -march=rv32imc -mabi=ilp32 -nostartfiles -Wl,--no-relax,-Bstatic -ffreestanding -nostdlib -gdwarf-2 -D__riscv
+export CCFLAGS := -O0
 CCFLAGS += $(DEVICE)
-CCFLAGS += -g -Wall -DSTM32F429xx -D__ASSEMBLY__
-
+CCFLAGS += -g
 export ASFLAGS := -c
 ASFLAGS += $(DEVICE)
-ASFLAGS += -x assembler-with-cpp -Wa,-mimplicit-it=thumb
-
 export LDFLAGS := $(DEVICE)
-#LDFLAGS += -lm -lgcc -lc
-LDFLAGS += -nostdlib -nostartfiles -Wl,--gc-sections,-u,Reset_Handler
-LDFLAGS += -T stm32_rom.ld
-
-else
-export CROSS_COMPILE ?= /home/zzz/code/riscv/riscv-tools/riscv-toolchain/bin/riscv32-unknown-elf-
-export CCFLAGS := -O2
-ASFLAGS += -nostdlib
-LDFLAGS += -march=rv32ima -mabi=ilp32 -Wl,-e_reset_vector
-# LDFLAGS += -T link.ld_org
-LDFLAGS +=
-endif
+LDFLAGS += -T link.ld
 
 export CC := $(CROSS_COMPILE)gcc
 export AR := $(CROSS_COMPILE)ar

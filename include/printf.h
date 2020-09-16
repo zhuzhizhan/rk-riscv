@@ -13,25 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#ifndef __PRINTF_H
+#define __PRINTF_H
 
-#include "printf.h"
-#include "encoding.h"
+#include "mem_map.h"
 
-int main()
-{
-	int a = 10;
-	int b = 3;
-	printf("a + b = %d\n", a + b);
-	printf("a - b = %d\n", a - b);
-	printf("a * b = %d\n", a * b);
-	printf("a / b = %d\n", a / b);
-	printf("a \% b = %d\n", a % b);
-	printf("Hello world from SweRV on FPGA!\n");
-        printf("read_csr() is %x\n", read_csr(0xf11));
-        printf("read_csr() is %x\n", read_csr(0xf12));
-        printf("read_csr() is %x\n", read_csr(0xf13));
-        printf("read_csr() is %x\n", read_csr(0xf14));
-        printf("read_csr() is %x\n", read_csr(0xb00));
-        printf("read_csr() is %x\n", read_csr(0xb02));
-	return 0;
-}
+int	printf(const char* format, ... );
+
+#endif //__PRINTF_H
