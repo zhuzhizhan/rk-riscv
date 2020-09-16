@@ -8,7 +8,7 @@
 TARGET := riscv.elf
 
 export CROSS_COMPILE ?= riscv32-unknown-elf-
-DEVICE := -march=rv32imc -mabi=ilp32 -nostartfiles -Wl,--no-relax,-Bstatic -ffreestanding -nostdlib -gdwarf-2 -D__riscv
+DEVICE := -march=rv32imc -mabi=ilp32 -nostartfiles -Wl,--no-relax,-Bstatic -ffreestanding -nostdlib -gdwarf-2 -D__riscv -Wl,--defsym=__comrv_cache_size=1536 -Wl,--defsym=__comrv_cache_alignment_size=512
 export CCFLAGS := -O0
 CCFLAGS += $(DEVICE)
 CCFLAGS += -g
