@@ -1,0 +1,1 @@
+openocd -f swerv.cfg & riscv32-unknown-elf-gdb out/riscv.elf --batch -ex "set arch riscv:rv32" -ex "set remotetimeout 250" -ex "target remote localhost:3333" -ex "load" -ex "monitor resume" -ex "monitor shutdown" -ex "quit" && echo "Successfully uploaded"
