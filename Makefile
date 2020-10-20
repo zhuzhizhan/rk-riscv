@@ -7,8 +7,8 @@
 
 TARGET := riscv.elf
 
-export CROSS_COMPILE ?= riscv32-unknown-elf-
-DEVICE := -march=rv32imc -mabi=ilp32 -nostartfiles -Wl,--no-relax,-Bstatic -ffreestanding -nostdlib -gdwarf-2 -D__riscv -Wl,--defsym=__comrv_cache_size=1536 -Wl,--defsym=__comrv_cache_alignment_size=512
+export CROSS_COMPILE ?= /home/zzz/code/hifive-riscv-tool-chain/riscv32-unknown-elf-gcc/bin/riscv32-unknown-elf-
+DEVICE := -march=rv32imc -mabi=ilp32 -nostartfiles -Wl,--no-relax,-Bstatic -ffreestanding -lgcc -gdwarf-2 -D__riscv -Wl,--defsym=__comrv_cache_size=1536 -Wl,--defsym=__comrv_cache_alignment_size=512
 export CCFLAGS := -O0
 CCFLAGS += $(DEVICE)
 CCFLAGS += -g

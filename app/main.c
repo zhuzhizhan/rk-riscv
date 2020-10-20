@@ -13,25 +13,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-#include "printf.h"
 #include "encoding.h"
+#include "interrupt.h"
+#include "printf.h"
+#include "timer.h"
+#include "coremark.h"
 
-int main()
+extern MAIN_RETURN_TYPE
+core_main(void);
+
+void board_info(void)
 {
 	int a = 10;
 	int b = 3;
+
+	printf("Hello world from SweRV on FPGA!\n");
 	printf("a + b = %d\n", a + b);
 	printf("a - b = %d\n", a - b);
 	printf("a * b = %d\n", a * b);
 	printf("a / b = %d\n", a / b);
-	printf("a \% b = %d\n", a % b);
-	printf("Hello world from SweRV on FPGA!\n");
-        printf("read_csr() is %x\n", read_csr(0xf11));
-        printf("read_csr() is %x\n", read_csr(0xf12));
-        printf("read_csr() is %x\n", read_csr(0xf13));
-        printf("read_csr() is %x\n", read_csr(0xf14));
-        printf("read_csr() is %x\n", read_csr(0xb00));
-        printf("read_csr() is %x\n", read_csr(0xb02));
+	printf("a %% b = %d\n", a % b);
+        printf("Vendor ID is %x\n", read_csr(0xf11));
+        printf("Architecture ID is %x\n", read_csr(0xf12));
+        printf("Implementation ID is %x\n", read_csr(0xf13));
+        printf("Hardware thread ID is %x\n", read_csr(0xf14));
+}
+
+int main()
+{
+	board_info();
+
+	core_main();
+
 	return 0;
 }
